@@ -213,10 +213,10 @@ function showModal() {
     if(state.score >= 5){
         modalEmoji.textContent = '🏆';
         modalTitle.textContent = 'Champion!';
-    }else if (score > 0) {
+    }else if (state.score > 0) {
         modalEmoji.textContent = '🎉';
         modalTitle.textContent = 'Nice Work!';
-    }else if (score === 0) {
+    }else if (state.score === 0) {
         modalEmoji.textContent = '😐';
         modalTitle.textContent = 'Better Luck Next Time!';
     }else {

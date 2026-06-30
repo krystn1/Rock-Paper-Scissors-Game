@@ -4,77 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock-Paper-Scissors</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="custom.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" />
 </head>
-<body>
-    <div class="game-wrapper">
-        <header>
-            <h1>Rock-Paper-Scissors</h1>
-            <p>The classic game of Rock, Paper, Scissors!</p>
+<body
+    class="bg-bg font-inter text-text min-h-screen flex flex-col items-center justify-center py-6 px-4"
+    style="background-image: radial-gradient(
+        ellipse 80% 50% at 50% -10%,
+        rgba(124, 58, 237, 0.25) 0%,
+        transparent 70%
+    );"
+>
+    <div class="w-full max-w-2xl flex flex-col gap-6">
+        <header class="text-center">
+        <h1 
+            class="font-syne font-extrabold tracking-tight gradient-text"
+            style="font-size: clamp(2rem, 8vw, 3em);"
+        >
+            Rock-Paper-Scissors
+        </h1>
+            <p class="text-muted text-sm mt-1.5">The classic game of Rock, Paper, Scissors!</p>
         </header>
 
-        <div class="hud">
-            <div class="hud-card">
-                <div class="hud-label">Your Score</div>
-                <div class="hud-value" id="score-display">0</div>
+        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <div class="bg-surface rounded-2xl px-5 py-3.5 text-center border border-white/[0.06]">
+                <div class="text-[0.7rem] tracking-widest uppercase text-muted mb-1">Your Score</div>
+                <div class="font-syne text-[1.6rem] font-bold text-gold" id="score-display">0</div>
             </div>
 
-            <div class="timer-pill" id="timer-pill">
-                <div class="hud-label">Time Left</div>
-                <div id="timer-display">2:00</div>
+            <div 
+            class="bg-accent rounded-full px-6 py-2.5 text-center whitespace-nowrap" 
+            id="timer-pill"
+            style="box-shadow: 0 0 20px rgba(124, 58, 237, 0.35);"
+            >
+                <div class="text-[0.7rem] tracking-widest uppercase text-white/70 mb-1">Time Left</div>
+                <div id="timer-display" class="font-syne text-[1.6rem] font-bold text-white">2:00</div>
             </div>
 
-            <div class="hud-card">
-                <div class="hud-label">Your Earnings</div>
-                <div class="hud-value" id="earnings-display">$0</div>
+            <div class="bg-surface rounded-2xl px-5 py-3.5 text-center border border-white/[0.06]">
+                <div class="text-[0.7rem] tracking-widest uppercase text-muted mb-1">Your Earnings</div>
+                <div class="font-syne text-[1.6rem] font-bold text-win" id="earnings-display">$0</div>
             </div>
         </div>
 
-        <div class="arena" id="arena">
-            <div class="fighter" id="player">
-                <div class="fighter-label">You</div>
-                <div class="fighter-icon" id="player-icon">❓</div>
+        <div 
+        class="arena bg-surface rounded-3xl px-6 py-8 border min-h-[180px] border-white/[0.06] flex items-center justify-between gap-4 relative overflow-hidden"
+        id="arena"
+        >
+            <div class="flex flex-1 flex-col items-center gap-3" id="player">
+                <div class="text-[0.72rem] tracking-[0.12em] uppercase text-muted font-semibold">You</div>
+                <div class="text-[5rem] leading-none fighter-icon" id="player-icon">❓</div>
             </div>
-            <div class="vs-badge">VS</div>
-            <div class="fighter" id="computer">
-                <div class="fighter-label">Computer</div>
-                <div class="fighter-icon" id="computer-icon" style="transform: scaleX(-1);">❓</div>
+            <div class="font-syne text-[1.2rem] font-extrabold text-muted px-3.5 py-2 border border-white/[0.08] rounded-lg tracking-[0.05em] shrink-0">VS</div>
+            <div class="flex flex-1 flex-col items-center gap-3" id="computer">
+                <div class="text-[0.72rem] tracking-[0.12em] uppercase text-muted font-semibold">Computer</div>
+                <div class="text-[5rem] leading-none fighter-icon" id="computer-icon" style="transform: scaleX(-1);">❓</div>
             </div>
             <div class="result-banner" id="result-banner">
-                <div class="result-text" id="result-text"></div>
-                <div class="result-sub" id="result-sub"></div>
+                <div class="font-syne font-extrabold" id="result-text"></div>
+                <div class="text-[0.85rem] text-muted" id="result-sub"></div>
             </div>
         </div>
 
-        <div class="choices">
-            <button class="choice-btn" data-choice="rock" disabled>
-                <span class="choice-icon">✊</span>
-                <span class="choice-name">Rock</span>
+        <div class="grid grid-cols-3 gap-3">
+            <button class="choice-btn bg-surface border-2 border-white/[0.07] rounded-2xl flex flex-col items-center gap-2.5 py-5 px-3 cursor-pointer transition-all duration-200 hover:border-accent hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(124, 58, 237, 0.35)] active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed" data-choice="rock" disabled>
+                <span class="text-[2.6rem] leading-none">✊</span>
+                <span class="text-[0.78rem] font-semibold tracking-[0.08em] uppercase text-muted">Rock</span>
             </button>
-            <button class="choice-btn" data-choice="paper" disabled>
-                <span class="choice-icon">🖐️</span>
-                <span class="choice-name">Paper</span>
+            <button class="choice-btn bg-surface border-2 border-white/[0.07] rounded-2xl flex flex-col items-center gap-2.5 py-5 px-3 cursor-pointer transition-all duration-200 hover:border-accent hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(124, 58, 237, 0.35)] active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed" data-choice="paper" disabled>
+                <span class="text-[2.6rem] leading-none">🖐️</span>
+                <span class="text-[0.78rem] font-semibold tracking-[0.08em] uppercase text-muted">Paper</span>
             </button>
-            <button class="choice-btn" data-choice="scissors" disabled>
-                <span class="choice-icon">✌️</span>
-                <span class="choice-name">Scissors</span>
+            <button class="choice-btn bg-surface border-2 border-white/[0.07] rounded-2xl flex flex-col items-center gap-2.5 py-5 px-3 cursor-pointer transition-all duration-200 hover:border-accent hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(124, 58, 237, 0.35)] active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed" data-choice="scissors" disabled>
+                <span class="text-[2.6rem] leading-none">✌️</span>
+                <span class="text-[0.78rem] font-semibold tracking-[0.08em] uppercase text-muted">Scissors</span>
             </button>
         </div>
 
-        <div class="start-section">
-            <button id="start-btn">▶ Start Game</button>
+        <div class="flex justify-center">
+            <button 
+            id="start-btn"
+            class="btn-gradient font-syne font-bold text-[1.05rem] tracking-[0.04em] text-white border-none px-12 py-4 cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.98] disabled:cursor-not-allowed disabled:transform-none disabled:opacity-40"
+            style="box-shadow: 0 4px 24px rgba(124, 58, 237, 0.35);"
+            >▶ Start Game</button>
         </div>
     </div>
 
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal">
-            <div class="modal-emoji" id="modal-emoji">🏆</div>
-            <div class="modal-title" id="modal-title">Time's Up!</div>
-            <div class="modal-subtitle">Here's how you did</div>
-            <div class="modal-earnings" id="modal-earnings">$0</div>
-            <div class="modal-score-line" id="modal-score-line">Final Score: 0 points</div>
-            <button class="modal-btn" id="play-again-btn">Play Again</button>
+    <div class="modal-overlay-hidden fixed inset-0 flex items-center justify-center z-[100] backdrop-blur-sm bg-black/70 p-5" id="modal-overlay">
+        <div class="bg-surface rounded-4xl border border-white/10 px-8 py-10 max-w-sm w-full text-center modal-card">
+            <div class="text-[4rem] mb-3" id="modal-emoji">🏆</div>
+            <div class="font-syne text-[1.8rem] font-extrabold mb-2" id="modal-title">Time's Up!</div>
+            <div class="text-muted text-sm mb-7">Here's how you did</div>
+            <div class="font-syne text-[3rem] font-extrabold text-gold mb-1.5" id="modal-earnings">$0</div>
+            <div class="text-muted text-sm mb-8" id="modal-score-line">Final Score: 0 points</div>
+            <button 
+            class="font-syne font-bold text-[1rem] text-base btn-gradient text-white border-none px-10 py-3.5 cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.04] active:scale-[0.98]" 
+            id="play-again-btn"
+            style="box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);"
+            >Play Again</button>
         </div>
     </div>
 
